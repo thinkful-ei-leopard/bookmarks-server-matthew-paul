@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const logger = require('./logger')
+const logger = require('./logger');
 const { NODE_ENV } = require('./config');
 
 const app = express();
@@ -30,11 +30,13 @@ app.use(function validateBearerToken(req, res, next) {
 
 app.use('/bookmarks', bookmarkRouter);
 
+// eslint-disable-next-line no-unused-vars
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === 'production') {
     response = { error: { message: 'server error' } };
   } else {
+    // eslint-disable-next-line no-console
     console.error(error);
     response = { message: error.message, error };
   }
